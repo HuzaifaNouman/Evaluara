@@ -107,7 +107,7 @@ export default function Sidebar() {
                   <Button
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-neutral-white hover:bg-white/10",
+                      "w-full justify-start text-neutral-white hover:bg-white/10 hover:text-secondary",
                       !isExpanded && "px-4"
                     )}
                   >
@@ -148,7 +148,7 @@ export default function Sidebar() {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start text-white hover:bg-white/10",
+                    "w-full justify-start text-white hover:bg-white/10 hover:text-secondary",
                     !isExpanded && "px-4"
                   )}
                 >
