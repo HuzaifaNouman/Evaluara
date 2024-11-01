@@ -1,0 +1,10 @@
+<svg width="72" height="61" viewBox="0 0 72 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="18.7197" y="41.356" width="18.72" height="21.7119" rx="9.36" transform="rotate(180 18.7197 41.356)" fill="#183661"/>
+<rect x="66.2402" y="41.356" width="18.72" height="21.7119" rx="9.36" transform="rotate(180 66.2402 41.356)" fill="#183661"/>
+<rect x="31.6797" y="61" width="18.72" height="20.678" rx="9.36" transform="rotate(180 31.6797 61)" fill="#183661"/>
+<rect x="31.6797" y="20.678" width="18.72" height="20.678" rx="9.36" transform="rotate(180 31.6797 20.678)" fill="#FF8548"/>
+<rect x="53.2803" y="20.678" width="18.72" height="20.678" rx="9.36" transform="rotate(180 53.2803 20.678)" fill="#183661"/>
+<rect x="53.2803" y="61" width="18.72" height="20.678" rx="9.36" transform="rotate(180 53.2803 61)" fill="#FF8548"/>
+<ellipse cx="33.1191" cy="31.2093" rx="10.08" ry="9.93023" fill="#183661"/>
+<path d="M71.4997 30.5C71.4997 41.5937 62.6882 50.5697 51.8397 50.5697C40.9912 50.5697 32.1797 41.5937 32.1797 30.5C32.1797 19.4062 40.9912 10.4302 51.8397 10.4302C62.6882 10.4302 71.4997 19.4062 71.4997 30.5Z" stroke="white"/>
+</svg>

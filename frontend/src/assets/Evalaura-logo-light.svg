@@ -1,0 +1,10 @@
+<svg width="41" height="33" viewBox="0 0 41 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="10.5625" y="22.1821" width="10.5625" height="11.6457" rx="5.28125" transform="rotate(180 10.5625 22.1821)" fill="white"/>
+<rect x="37.375" y="22.1821" width="10.5625" height="11.6457" rx="5.28125" transform="rotate(180 37.375 22.1821)" fill="white"/>
+<rect x="17.875" y="32.7188" width="10.5625" height="11.0911" rx="5.28125" transform="rotate(180 17.875 32.7188)" fill="white"/>
+<rect x="17.875" y="11.0911" width="10.5625" height="11.0911" rx="5.28125" transform="rotate(180 17.875 11.0911)" fill="#FF8548"/>
+<rect x="30.0625" y="11.0911" width="10.5625" height="11.0911" rx="5.28125" transform="rotate(180 30.0625 11.0911)" fill="white"/>
+<rect x="30.0625" y="32.7188" width="10.5625" height="11.0911" rx="5.28125" transform="rotate(180 30.0625 32.7188)" fill="#FF8548"/>
+<ellipse cx="18.6875" cy="16.7399" rx="5.6875" ry="5.32631" fill="white"/>
+<path d="M40.125 16.3595C40.125 22.1625 35.2706 26.8925 29.25 26.8925C23.2294 26.8925 18.375 22.1625 18.375 16.3595C18.375 10.5565 23.2294 5.82642 29.25 5.82642C35.2706 5.82642 40.125 10.5565 40.125 16.3595Z" stroke="#183661"/>
+</svg>
