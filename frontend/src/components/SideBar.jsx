@@ -14,10 +14,12 @@ import { Link } from "react-router-dom";
 
 import Logo from "@/assets/Evalaura-logo-light.svg";
 import hamburger from "@/assets/hamburger.svg";
+import { useNavbarTitle } from "@/stores/navbar-store";
 
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isManualExpand, setIsManualExpand] = useState(false);
+  const { setTitle } = useNavbarTitle();
 
   const menuItems = [
     {
@@ -110,11 +112,12 @@ export default function Sidebar() {
                       "w-full justify-start text-neutral-white hover:bg-white/10 hover:text-secondary",
                       !isExpanded && "px-4"
                     )}
+                    onClick={() => setTitle(item.title)}
                   >
                     <item.icon className="h-5 w-5" />
                     <span
                       className={cn(
-                        "ml-2 transition-all duration-300",
+                        "ml-2 transition-all duration-300 font-medium text-[15px]",
                         isExpanded ? "opacity-100" : "opacity-0 w-0"
                       )}
                     >
@@ -151,6 +154,7 @@ export default function Sidebar() {
                     "w-full justify-start text-white hover:bg-white/10 hover:text-secondary",
                     !isExpanded && "px-4"
                   )}
+                  onClick={() => setTitle(item.title)}
                 >
                   <item.icon className="h-5 w-5" />
                   <span
@@ -170,7 +174,8 @@ export default function Sidebar() {
 
       <img
         onClick={toggleManualExpand}
-        className="mt-6 mx-3 w-5 cursor-pointer"
+        className="mt-11 ml-3 w-5 cursor-pointer"
+        aria-label="Toggle Sidebar"
         src={hamburger}
         alt="hamburger menu"
       />
