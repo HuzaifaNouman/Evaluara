@@ -6,13 +6,54 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Logo from "@/assets/Evalaura-logo-dark.svg";
+import axios from "axios";
 
-export default function Component() {
+export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "", // Matches the backend field name and id in Input components
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${apiUrl}/api/auth/signup`, formData);
+      setSuccess("Account created successfully!");
+      setError(null);
+    } catch (err) {
+      setSuccess(null);
+      if (err.response && err.response.status === 409) {
+        // Display a specific error message for duplicate email
+        setError("An account with this email already exists.");
+      } else {
+        setError("Failed to create account. Please try again.");
+      }
+      console.error("Full error object:", err); // Log the full error object for debugging
+      console.error("Error response:", err.response);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-base flex items-center justify-center p-4">
-      <div className="w-full max-w-[440px] bg-neutral-white p-8 space-y-8">
+      <div className="w-full max-w-[440px] bg-neutral-white p-8 space-y-8 rounded-lg">
         {/* Logo */}
         <div className="flex justify-center items-center">
           <img className="w-16" src={Logo} alt="Evalaura" />
@@ -26,10 +67,17 @@ export default function Component() {
         </div>
 
         {/* Form */}
-        <form className="space-y-6 my-2">
+        <form className="space-y-6 my-2" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="name">NAME</Label>
-            <Input id="name" placeholder="Dominik Doudny" className="h-10" />
+            <Input
+              id="name"
+              placeholder="Dominik Doudny"
+              className="h-10 rounded-lg"
+              value={formData.FullName}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div className="space-y-2">
@@ -39,6 +87,9 @@ export default function Component() {
               type="email"
               placeholder="comvi-dashboard@email.com"
               className="h-10"
+              value={formData.Email}
+              onChange={handleChange}
+              required
             />
           </div>
 
@@ -49,6 +100,9 @@ export default function Component() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="h-10 pr-10"
+                value={formData.Password}
+                onChange={handleChange}
+                required
               />
               <button
                 type="button"
@@ -63,10 +117,14 @@ export default function Component() {
           <Button
             type="submit"
             className="w-full h-10 text-neutral-white bg-accent hover:bg-accent/90 my-0"
+            disabled={isLoading}
           >
-            Create an Account
+            {isLoading ? "Creating Account..." : "Create an Account"}
           </Button>
         </form>
+
+        {success && <div className="text-green-500 text-center">{success}</div>}
+        {error && <div className="text-red-500 text-center">{error}</div>}
 
         {/* Google Sign Up */}
         <div className="space-y-4">

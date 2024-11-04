@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -7,8 +7,57 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Logo from "@/assets/Evalaura-logo-dark.svg";
 
-export default function Component() {
+export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
+  // State for managing form data
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState(null); // State for error messages
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
+
+  const navigate = useNavigate(); // For redirecting after a successful sign-in
+
+  // Handle input change for form fields
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true); // Set loading state to true
+    try {
+      // Use the environment variable for the API URL
+      const apiUrl = import.meta.env.VITE_API_URL || "https://localhost:7119";
+      // Send a POST request to the sign-in endpoint with form data
+      const response = await axios.post(`${apiUrl}/api/auth/signin`, formData);
+
+      // Get the token from the response and store it in localStorage
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem("authToken", token); // Save the token
+
+        // Set the Authorization header for future Axios requests
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        // Redirect to a protected route, e.g., the dashboard
+        alert("Signed in successfully!");
+        navigate("/dashboard"); // Change '/dashboard' to your desired path
+      }
+    } catch (err) {
+      // Handle errors and set an appropriate error message
+      setError("Invalid email or password");
+      console.error("Sign-in error:", err.response || err);
+    } finally {
+      setIsLoading(false); // Set loading state to false
+    }
+  };
 
   return (
     <div className="min-h-screen bg-base flex items-center justify-center p-4">
@@ -25,7 +74,7 @@ export default function Component() {
         </div>
 
         {/* Form */}
-        <form className="space-y-6 my-2">
+        <form className="space-y-6 my-2" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="email">EMAIL</Label>
             <Input
@@ -33,6 +82,8 @@ export default function Component() {
               type="email"
               placeholder="comvi-dashboard@email.com"
               className="h-10"
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -43,6 +94,8 @@ export default function Component() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="h-10 pr-10"
+                value={formData.password}
+                onChange={handleChange}
               />
               <button
                 type="button"
@@ -58,8 +111,10 @@ export default function Component() {
             type="submit"
             className="w-full h-10 text-neutral-white bg-accent hover:bg-accent/90 my-0"
           >
-            Sign In
+            {isLoading ? "Signing In..." : "Sign In"}
           </Button>
+          {/* Display error message */}
+          {error && <div className="text-red-500 text-center">{error}</div>}
         </form>
 
         {/* Google Sign Up */}
