@@ -6,7 +6,7 @@ function DashboardLayout() {
   return (
     <div className="flex bg-[#EFF6FA]">
       <SideBar />
-      <main className="flex-col flex-grow p-4">
+      <main className="flex-col flex-grow p-4 max-w-[92vw]">
         <Navbar />
         <Outlet />
       </main>
