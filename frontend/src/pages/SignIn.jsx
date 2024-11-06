@@ -34,7 +34,7 @@ export default function SignIn() {
     setIsLoading(true); // Set loading state to true
     try {
       // Use the environment variable for the API URL
-      const apiUrl = import.meta.env.VITE_API_URL || "https://localhost:7119";
+      const apiUrl = import.meta.env.VITE_API_URL;
       // Send a POST request to the sign-in endpoint with form data
       const response = await axios.post(`${apiUrl}/api/auth/signin`, formData);
 
@@ -46,8 +46,6 @@ export default function SignIn() {
         // Set the Authorization header for future Axios requests
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        // Redirect to a protected route, e.g., the dashboard
-        alert("Signed in successfully!");
         navigate("/dashboard"); // Change '/dashboard' to your desired path
       }
     } catch (err) {

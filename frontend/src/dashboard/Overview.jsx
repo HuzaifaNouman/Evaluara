@@ -3,6 +3,8 @@ import StatCard from "@/components/StatCard";
 import thumb from "@/assets/thumb.svg";
 import heart from "@/assets/heart.svg";
 import rating from "@/assets/rating.svg";
+import BarChartComp from "@/components/BarChartComp";
+import PieChartComp from "@/components/PieChartComp";
 
 const statData = [
   {
@@ -29,6 +31,18 @@ const Overview = () => {
         {statData.map((data, index) => (
           <StatCard data={data} key={index} />
         ))}
+      </div>
+
+      <div
+        className="grid gap-4 p-4
+                    grid-cols-1 
+                    sm:grid-cols-2 
+                    lg:grid-cols-6"
+      >
+        {/* Feedback Volume Bar Chart */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-4 rounded-lg p-4">
+          <BarChartComp />
+        </div>
       </div>
     </div>
   );

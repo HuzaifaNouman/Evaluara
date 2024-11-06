@@ -74,7 +74,7 @@ export default function SignUp() {
               id="name"
               placeholder="Dominik Doudny"
               className="h-10 rounded-lg"
-              value={formData.FullName}
+              value={formData.name}
               onChange={handleChange}
               required
             />
@@ -87,7 +87,7 @@ export default function SignUp() {
               type="email"
               placeholder="comvi-dashboard@email.com"
               className="h-10"
-              value={formData.Email}
+              value={formData.email}
               onChange={handleChange}
               required
             />
@@ -100,7 +100,7 @@ export default function SignUp() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 className="h-10 pr-10"
-                value={formData.Password}
+                value={formData.password}
                 onChange={handleChange}
                 required
               />
