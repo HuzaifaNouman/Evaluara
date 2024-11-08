@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="px-2 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <span className="font-medium text-[30px]">{title}</span>
+            <span className="font-bold text-[32px]">{title}</span>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
@@ -67,8 +67,10 @@ export default function Navbar() {
                     <AvatarFallback>GK</AvatarFallback>
                   </Avatar>
                   <div className="text-left">
-                    <div className="text-sm font-medium">Gladys Kanyinda</div>
-                    <div className="text-xs text-gray-500">Admin</div>
+                    <div className="text-sm font-semibold">Gladys Kanyinda</div>
+                    <div className="text-xs text-gray-500 font-light">
+                      Admin
+                    </div>
                   </div>
                 </Button>
               </DropdownMenuTrigger>

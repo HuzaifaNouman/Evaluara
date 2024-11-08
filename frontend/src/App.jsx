@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import DashboardLayout from "./pages/DashboardLayout";
+import DashboardLayout from "./pages/DashboardLayout"; // Import here only
 import {
   Overview,
   Analytics,
@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { ThemeProvider } from "@/components/theme-provider";
+import PrivateRoute from "@/components/PrivateRoute"; // Import PrivateRoute
 
 function App() {
   return (
@@ -20,13 +21,15 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
 
-      {/* Dashboard Routes with ThemeProvider */}
+      {/* Protected Dashboard Routes with ThemeProvider */}
       <Route
         path="/dashboard"
         element={
-          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <DashboardLayout />
-          </ThemeProvider>
+          <PrivateRoute>
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+              <DashboardLayout />
+            </ThemeProvider>
+          </PrivateRoute>
         }
       >
         <Route path="overview" element={<Overview />} />

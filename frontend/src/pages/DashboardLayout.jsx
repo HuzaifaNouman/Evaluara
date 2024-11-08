@@ -5,8 +5,10 @@ import Navbar from "@/components/Navbar";
 function DashboardLayout() {
   return (
     <div className="flex bg-[#EFF6FA]">
-      <SideBar />
-      <main className="flex-col flex-grow p-4 max-w-[92vw]">
+      <div>
+        <SideBar />
+      </div>
+      <main className="flex-col flex-grow p-2 min-[768px]:max-w-[92vw] max-w-full">
         <Navbar />
         <Outlet />
       </main>

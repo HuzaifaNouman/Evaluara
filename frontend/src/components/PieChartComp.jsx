@@ -8,18 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const RADIAN = Math.PI / 90;
+const RADIAN = Math.PI / 180;
 const data = [
-  { name: "Group A", value: 600, color: "#183661" },
-  { name: "Group B", value: 300, color: "#FF8548" },
+  { name: "Positive", value: 600, color: "#1476B5" },
+  { name: "Negative", value: 300, color: "#FF8548" },
 ];
-const iR = 75;
-const oR = 90;
+const iR = 160;
+const oR = 180;
 const needleValue = 600; // to change the position of the needle
 
 // Needle rendering function
 const renderNeedle = (value, data, cx, cy, iR, oR, color) => {
-  let total = data.reduce((acc, entry) => acc + entry.value, 0);
+  const total = data.reduce((acc, entry) => acc + entry.value, 0);
   const angle = 180 * (1 - value / total);
   const length = (iR + oR * 2) / 3;
   const sin = Math.sin(-RADIAN * angle);
@@ -45,46 +45,60 @@ const renderNeedle = (value, data, cx, cy, iR, oR, color) => {
 };
 
 const ResponsiveNeedlePieChart = () => {
-  const [chartCenter, setChartCenter] = useState({ cx: 200, cy: 200 });
+  const [chartCenter, setChartCenter] = useState({ cx: 0, cy: 0 });
   const chartRef = useRef(null);
 
   // Calculate the center of the pie chart dynamically
   useEffect(() => {
-    if (chartRef.current) {
-      const { width, height } = chartRef.current.getBoundingClientRect();
-      setChartCenter({ cx: width / 2, cy: height / 2 });
-    }
+    const updateChartCenter = () => {
+      if (chartRef.current) {
+        const { width, height } = chartRef.current.getBoundingClientRect();
+        setChartCenter({ cx: width / 2, cy: height / 2 });
+      }
+    };
+
+    // Initial calculation
+    updateChartCenter();
+
+    // Update on window resize
+    window.addEventListener("resize", updateChartCenter);
+    return () => window.removeEventListener("resize", updateChartCenter);
   }, []);
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <PieChart ref={chartRef}>
-        <Pie
-          data={data}
-          cx={chartCenter.cx}
-          cy={chartCenter.cy}
-          startAngle={180}
-          endAngle={0}
-          innerRadius={iR}
-          outerRadius={oR}
-          paddingAngle={5}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} />
-          ))}
-        </Pie>
-        {renderNeedle(
-          needleValue,
-          data,
-          chartCenter.cx,
-          chartCenter.cy,
-          iR,
-          oR,
-          "#183693"
-        )}
-      </PieChart>
-    </ResponsiveContainer>
+    <div ref={chartRef} style={{ width: "100%", height: "400px" }}>
+      <ResponsiveContainer aspect={2}>
+        <PieChart>
+          <Pie
+            data={data}
+            cx={chartCenter.cx}
+            cy={chartCenter.cy}
+            startAngle={180}
+            endAngle={0}
+            innerRadius={iR}
+            outerRadius={oR}
+            cornerRadius={10}
+            paddingAngle={5}
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+          {chartCenter.cx && chartCenter.cy
+            ? renderNeedle(
+                needleValue,
+                data,
+                chartCenter.cx,
+                chartCenter.cy,
+                iR,
+                oR,
+                "#1476B5"
+              )
+            : null}
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 
@@ -92,15 +106,17 @@ const ChartCard = () => {
   return (
     <Card className="w-full h-full max-w-lg mx-auto shadow-lg rounded-3xl">
       <CardHeader>
-        <CardTitle>Feedback Sentiment</CardTitle>
+        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+          Feedback Sentiment
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveNeedlePieChart />
       </CardContent>
-      <CardFooter className="flex items-center justify-between">
+      <CardFooter className="flex items-center justify-between font-[Roboto] mt-20">
         <div className="text-center flex items-center gap-5">
-          <p className="text-2xl">
-            <span className="font-bold">75% </span>
+          <p className="text-3xl">
+            <span className="font-bold">75%</span>
             <br /> Positive
           </p>
           <span
@@ -114,8 +130,8 @@ const ChartCard = () => {
           ></span>
         </div>
         <div className="text-center flex items-center gap-5">
-          <p className="text-2xl">
-            <span className="font-bold">25% </span>
+          <p className="text-3xl">
+            <span className="font-bold">25%</span>
             <br /> Negative
           </p>
           <span

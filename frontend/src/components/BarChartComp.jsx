@@ -51,10 +51,15 @@ export default function BarChartComp() {
   return (
     <Card className="rounded-3xl">
       <CardHeader className="flex items-center justify-between flex-row">
-        <CardTitle>Customer Feedback Volume</CardTitle>
+        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+          Customer Feedback Volume
+        </CardTitle>
         <Select>
           <SelectTrigger className="w-[100px]">
-            <SelectValue placeholder="Week" />
+            <SelectValue
+              className="font-[Roboto] font-light"
+              placeholder="Week"
+            />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -67,7 +72,13 @@ export default function BarChartComp() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart width={400} height={200} data={chartData} barSize={40}>
+          <BarChart
+            width={400}
+            height={200}
+            data={chartData}
+            barSize={40}
+            barCategoryGap="20%"
+          >
             <CartesianGrid
               stroke="#89CAF0" // color of the grid lines
               strokeWidth={1} // thickness of the grid lines

@@ -3,7 +3,7 @@ import newPage from "@/assets/newPage.svg";
 
 export default function StatCard({ data }) {
   return (
-    <Card className="w-full rounded-2xl">
+    <Card className="rounded-2xl w-full">
       <CardContent className="pt-6">
         <div className="flex items-center">
           <div className="w-full flex justify-between gap-4">
@@ -11,9 +11,9 @@ export default function StatCard({ data }) {
               <img src={data.icon} alt={data.title} />
             </div>
             <div className="space-y-1">
-              <p className="text-sm font-normal">{data.title}</p>
+              <p className="text-sm font-normal font-[Roboto]">{data.title}</p>
               <div className="flex justify-center items-center gap-2">
-                <h2 className="text-5xl font-semibold tracking-tight text-primary">
+                <h2 className="font-[Roboto] text-5xl font-semibold tracking-tight text-primary">
                   {data.value}
                 </h2>
               </div>
