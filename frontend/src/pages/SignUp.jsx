@@ -33,7 +33,7 @@ export default function SignupForm() {
             theme: "outline",
             size: "large",
             text: "continue_with",
-            width: 300,
+            width: "100%",
           }
         );
       }
@@ -177,10 +177,7 @@ export default function SignupForm() {
 
         {/* Google Sign-In button container */}
         <div className="space-y-4">
-          <div
-            id="google-signin-button"
-            className="w-full flex justify-center"
-          />
+          <div className="w-full h-10 rounded-xl" id="google-signin-button" />
         </div>
 
         <div className="text-center text-sm">

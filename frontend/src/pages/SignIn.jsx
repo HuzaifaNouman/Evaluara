@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import axios from "axios"; // Make sure axios is imported
+import axios from "axios";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +33,7 @@ export default function SignIn() {
             theme: "outline",
             size: "large",
             text: "continue_with",
-            width: 300,
+            width: "100%",
           }
         );
       }
@@ -165,10 +165,7 @@ export default function SignIn() {
 
         {/* Google Sign In */}
         <div className="space-y-4">
-          <div
-            id="google-signin-button"
-            className="w-full flex justify-center"
-          ></div>
+          <div id="google-signin-button" className="w-full"></div>
         </div>
 
         {/* Sign In Link */}
