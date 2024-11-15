@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,4 +7,17 @@
 body {
   overflow-x: hidden;
   font-family: "Manrope", sans-serif;
+}
+
+/* Tailwind CSS setup for dark mode */
+body {
+  @apply bg-[#0F1114] text-white; /* Main background and text color in dark mode */
+}
+
+.sidebar {
+  @apply bg-[#191B25]; /* Sidebar background color */
+}
+
+.card {
+  @apply bg-[#191B25] text-white; /* Card background and text color */
 }

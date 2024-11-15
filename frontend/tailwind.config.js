@@ -5,7 +5,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        base: "#EFF6FA",
+        baselight: "#EFF6FA",
+        basedark: "#0F1114",
         primary: {
           DEFAULT: "#183661",
           light: "#1476B5",
@@ -15,6 +16,13 @@ module.exports = {
         neutral: {
           white: "#FFF",
           black: "#000",
+          darkGray: "#30363E", // Dark gray color
+          deepBlack: "#18120F", // Deep black color
+        },
+        dark: {
+          heading: "#EAECFF",
+          text: "#FFFFFF",
+          cardBg: "#191B25",
         },
       },
     },

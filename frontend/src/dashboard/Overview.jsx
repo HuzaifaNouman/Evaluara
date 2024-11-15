@@ -28,35 +28,31 @@ const statData = [
 
 const Overview = () => {
   return (
-    <div>
-      <div className="flex justify-between items-center max-xl:flex-wrap gap-6">
+    <div className="mx-5">
+      <div className="flex justify-between items-center max-xl:flex-wrap gap-6 my-5">
         {statData.map((data, index) => (
           <StatCard data={data} key={index} />
         ))}
       </div>
 
-      <div
-        className="grid gap-2
-                    grid-cols-1 
-                    sm:grid-cols-2 
-                    lg:grid-cols-6"
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-5">
         {/* Feedback Volume Bar Chart */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-4 rounded-lg p-4">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 xl:col-span-4 rounded-lg">
           <BarChartComp />
         </div>
+
         {/* Feedback Sentiment Pie Chart */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-2 rounded-lg p-4">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 rounded-lg">
           <PieChartComp />
         </div>
 
         {/* Recent Feedback Section */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-3 row-start-2 lg:row-auto rounded-lg p-4">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 xl:col-span-3 row-start-2 lg:row-auto rounded-lg">
           <ScrollableFeedback />
         </div>
 
         {/* Feedback by Platforms Horizontal Bar Chart */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-3 row-start-3 lg:row-auto rounded-lg p-4">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 xl:col-span-3 row-start-3 lg:row-auto rounded-lg">
           <BarChartHorizontalComp />
         </div>
       </div>

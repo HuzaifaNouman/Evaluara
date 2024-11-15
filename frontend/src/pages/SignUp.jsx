@@ -104,19 +104,20 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="min-h-screen bg-base flex items-center justify-center p-4">
+    <div className="min-h-screen bg-baselight flex items-center justify-center p-4">
       <div className="w-full max-w-[440px] bg-neutral-white p-8 space-y-8 rounded-lg">
         <div className="flex justify-center items-center">
           <img className="w-16" src={Logo} alt="Evalaura" />
         </div>
-
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-neutral-deepBlack">
             Create an Account
           </h1>
         </div>
-
-        <form className="space-y-6 my-2" onSubmit={handleSubmit}>
+        <form
+          className="space-y-6 my-2 text-neutral-black"
+          onSubmit={handleSubmit}
+        >
           <div className="space-y-2">
             <Label htmlFor="FullName">FULL NAME</Label>
             <Input
@@ -171,16 +172,15 @@ export default function SignupForm() {
             {isLoading ? "Creating Account..." : "Create an Account"}
           </Button>
         </form>
-
         {success && <div className="text-green-500 text-center">{success}</div>}
         {error && <div className="text-red-500 text-center">{error}</div>}
-
         {/* Google Sign-In button container */}
+
         <div className="space-y-4">
           <div className="w-full h-10 rounded-xl" id="google-signin-button" />
         </div>
 
-        <div className="text-center text-sm">
+        <div className="text-center text-sm text-neutral-black opacity-75">
           Already have an Account?
           <Link to="/signin" className="text-secondary hover:underline">
             &nbsp;Sign In

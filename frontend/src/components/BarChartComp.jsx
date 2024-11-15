@@ -51,7 +51,7 @@ export default function BarChartComp() {
   return (
     <Card className="rounded-3xl">
       <CardHeader className="flex items-center justify-between flex-row">
-        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight text-neutral-darkGray dark:text-dark-heading">
           Customer Feedback Volume
         </CardTitle>
         <Select>
@@ -83,6 +83,7 @@ export default function BarChartComp() {
               stroke="#89CAF0" // color of the grid lines
               strokeWidth={1} // thickness of the grid lines
               strokeDasharray="13 10" // make it dashed
+              vertical={false} // hide vertical (Y-axis) grid lines
             />
             <XAxis
               dataKey="date"

@@ -54,7 +54,7 @@ const ScrollableFeedback = () => {
   return (
     <Card className="rounded-3xl">
       <CardHeader className="flex items-center justify-between flex-row">
-        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight text-neutral-darkGray dark:text-dark-heading">
           Recent Feedback
         </CardTitle>
         <Select>
@@ -71,9 +71,12 @@ const ScrollableFeedback = () => {
         </Select>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[400px] rounded-md border p-4">
+        <ScrollArea className="h-[380px] rounded-md border p-4">
           {feedbackData.map((data, index) => (
-            <Card key={index} className="m-2">
+            <Card
+              key={index}
+              className="my-4 dark:bg-dark-cardBg dark:border-[1px] dark:border-neutral-white"
+            >
               <CardHeader className="flex items-center justify-between flex-row">
                 <CardTitle className="max-md:text-lg">{data.name}</CardTitle>
                 <div className="max-md:text-sm">{data.socialName}</div>

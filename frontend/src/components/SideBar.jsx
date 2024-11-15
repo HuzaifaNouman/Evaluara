@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,63 +9,39 @@ import {
   Star,
   Settings,
   LogOut,
-  Menu,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import Logo from "@/assets/Evalaura-logo-light.svg";
-import hamburger from "@/assets/hamburger.svg";
 import { useNavbarTitle } from "@/stores/navbar-store";
+import { useStore } from "@/stores/navbar-hamburger";
 
 export default function Sidebar() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isManualExpand, setIsManualExpand] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const {
+    isExpanded,
+    isManualExpand,
+    isMobileMenuOpen,
+    setIsExpanded,
+    setIsMobileMenuOpen,
+  } = useStore();
   const { setTitle } = useNavbarTitle();
 
   const menuItems = [
-    {
-      title: "Overview",
-      icon: LayoutDashboard,
-      path: "/dashboard/overview",
-    },
-    {
-      title: "Analytics",
-      icon: Package,
-      path: "/dashboard/analytics",
-    },
-    {
-      title: "Reviews",
-      icon: ShoppingCart,
-      path: "/dashboard/reviews",
-    },
+    { title: "Overview", icon: LayoutDashboard, path: "/dashboard/overview" },
+    { title: "Analytics", icon: Package, path: "/dashboard/analytics" },
+    { title: "Reviews", icon: ShoppingCart, path: "/dashboard/reviews" },
     {
       title: "Feedback Management",
       icon: TrendingUp,
       path: "/dashboard/feedback",
     },
-    {
-      title: "AI",
-      icon: Star,
-      path: "/dashboard/ai",
-    },
+    { title: "AI", icon: Star, path: "/dashboard/ai" },
   ];
 
   const otherItems = [
-    {
-      title: "Settings",
-      icon: Settings,
-      path: "/dashboard/settings",
-    },
-    {
-      title: "Logout",
-      icon: LogOut,
-      path: "/dashboard/logout",
-    },
+    { title: "Settings", icon: Settings, path: "/dashboard/settings" },
+    { title: "Logout", icon: LogOut, path: "/dashboard/logout" },
   ];
 
-  // Handler for hover state
   const handleMouseEnter = () => {
     if (!isManualExpand) {
       setIsExpanded(true);
@@ -78,21 +54,19 @@ export default function Sidebar() {
     }
   };
 
-  // Handler for clicking the hamburger menu
-  const toggleManualExpand = () => {
-    setIsManualExpand((prev) => !prev);
-    setIsExpanded((prev) => !prev);
-  };
-
   return (
     <>
-      <div className="sticky top-3 left-5 flex items-start justify-between flex-row max-[768px]:hidden">
+      {/* Desktop Sidebar */}
+      <div className="sticky top-5 left-5 flex items-start justify-between flex-row max-md:hidden">
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "bg-[#1E2F65] m-3 h-[95vh] text-white transition-all duration-200 ease-in-out rounded-xl",
-            isExpanded ? "w-64 rounded-xl" : "w-16"
+            "bg-primary dark:bg-dark-cardBg h-[95vh] text-neutral-white transition-all duration-200 ease-in-out rounded-xl",
+            isExpanded ? "w-64 rounded-xl" : "w-16",
+            // Apply fixed positioning between 768px and 800px
+            "md:relative lg:sticky md:max-w-64 lg:max-w-full",
+            "max-md:hidden md:block lg:block"
           )}
         >
           {/* Logo Section */}
@@ -175,67 +149,52 @@ export default function Sidebar() {
             </nav>
           </div>
         </div>
+      </div>
 
-        <img
-          onClick={toggleManualExpand}
-          className="mt-11 ml-3 w-5 cursor-pointer"
-          aria-label="Toggle Sidebar"
-          src={hamburger}
-          alt="hamburger menu"
-        />
-      </div>
       {/* Mobile Sidebar */}
-      <div className="md:hidden absolute top-7 right-5">
-        <Button
-          variant="ghost"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <img src={hamburger} alt="Menu" />
-        </Button>
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 bg-[#1E2F65] p-4">
-            <Button
-              variant="ghost"
-              className="absolute top-4 right-4 text-white"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <LogOut className="h-6 w-6" />
-            </Button>
-            <div className="p-4 h-16 flex items-center justify-center">
-              <span className="text-xl font-bold text-white">Evaluara</span>
-            </div>
-            <nav className="px-2 py-4">
-              {menuItems.map((item, index) => (
-                <Link key={index} to={item.path}>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-white hover:bg-white/10"
-                    onClick={() => {
-                      setTitle(item.title);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span className="ml-2">{item.title}</span>
-                  </Button>
-                </Link>
-              ))}
-              {otherItems.map((item, index) => (
-                <Link key={index} to={item.path}>
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start text-white hover:bg-white/10"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span className="ml-2">{item.title}</span>
-                  </Button>
-                </Link>
-              ))}
-            </nav>
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-primary dark:bg-dark-cardBg p-4 md:hidden">
+          <Button
+            variant="ghost"
+            className="absolute top-4 right-4 text-white"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <LogOut className="h-6 w-6" />
+          </Button>
+          <div className="p-4 h-16 flex items-center justify-center">
+            <span className="text-xl font-bold text-white">Evaluara</span>
           </div>
-        )}
-      </div>
+          <nav className="px-2 py-4">
+            {menuItems.map((item, index) => (
+              <Link key={index} to={item.path}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-white hover:bg-white/10"
+                  onClick={() => {
+                    setTitle(item.title);
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span className="ml-2">{item.title}</span>
+                </Button>
+              </Link>
+            ))}
+            {otherItems.map((item, index) => (
+              <Link key={index} to={item.path}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-white hover:bg-white/10"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span className="ml-2">{item.title}</span>
+                </Button>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
     </>
   );
 }

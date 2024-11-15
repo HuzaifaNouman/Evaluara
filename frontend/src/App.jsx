@@ -12,7 +12,7 @@ import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { ThemeProvider } from "@/components/theme-provider";
-import PrivateRoute from "@/components/PrivateRoute"; // Import PrivateRoute
+// import PrivateRoute from "@/components/PrivateRoute"; // Import PrivateRoute
 
 function App() {
   return (
@@ -25,11 +25,11 @@ function App() {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute>
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <DashboardLayout />
-            </ThemeProvider>
-          </PrivateRoute>
+          // <PrivateRoute>
+          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <DashboardLayout />
+          </ThemeProvider>
+          // </PrivateRoute>
         }
       >
         <Route path="overview" element={<Overview />} />

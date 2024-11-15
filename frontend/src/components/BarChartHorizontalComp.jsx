@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEffect, useState } from "react";
 
 export const description = "A mixed bar chart";
 
@@ -57,10 +58,18 @@ const chartConfig = {
 };
 
 export default function BarChartHorizontalComp() {
+  const [barSize, setBarSize] = useState(30);
+
+  useEffect(() => {
+    if (window.innerWidth <= 640) {
+      setBarSize(20);
+    }
+  }, []);
+
   return (
     <Card className="rounded-3xl">
       <CardHeader className="flex items-center justify-between flex-row">
-        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight text-neutral-darkGray dark:text-dark-heading">
           Customer Feedback Volume
         </CardTitle>
         <Select>
@@ -99,7 +108,12 @@ export default function BarChartHorizontalComp() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="visitors" layout="vertical" radius={10} barSize={30}>
+            <Bar
+              dataKey="visitors"
+              layout="vertical"
+              radius={10}
+              barSize={barSize}
+            >
               <LabelList
                 dataKey="visitors"
                 position="insideRight"

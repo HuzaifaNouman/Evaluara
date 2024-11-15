@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import {
@@ -13,8 +15,6 @@ const data = [
   { name: "Positive", value: 600, color: "#1476B5" },
   { name: "Negative", value: 300, color: "#FF8548" },
 ];
-const iR = 160;
-const oR = 180;
 const needleValue = 600; // to change the position of the needle
 
 // Needle rendering function
@@ -45,108 +45,104 @@ const renderNeedle = (value, data, cx, cy, iR, oR, color) => {
 };
 
 const ResponsiveNeedlePieChart = () => {
-  const [chartCenter, setChartCenter] = useState({ cx: 0, cy: 0 });
+  const [chartSize, setChartSize] = useState({ width: 0, height: 0 });
   const chartRef = useRef(null);
 
-  // Calculate the center of the pie chart dynamically
   useEffect(() => {
-    const updateChartCenter = () => {
+    const updateChartSize = () => {
       if (chartRef.current) {
         const { width, height } = chartRef.current.getBoundingClientRect();
-        setChartCenter({ cx: width / 2, cy: height / 2 });
+        const size = Math.min(width, height);
+        setChartSize({ width: size, height: size });
       }
     };
 
-    // Initial calculation
-    updateChartCenter();
-
-    // Update on window resize
-    window.addEventListener("resize", updateChartCenter);
-    return () => window.removeEventListener("resize", updateChartCenter);
+    updateChartSize();
+    const resizeObserver = new ResizeObserver(updateChartSize);
+    if (chartRef.current) {
+      resizeObserver.observe(chartRef.current);
+    }
+    return () => {
+      if (chartRef.current) {
+        resizeObserver.unobserve(chartRef.current);
+      }
+    };
   }, []);
 
+  const { width, height } = chartSize;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const outerRadius = Math.min(width, height) / 2.5;
+  const innerRadius = outerRadius * 0.9;
+
   return (
-    <div ref={chartRef} style={{ width: "100%", height: "400px" }}>
-      <ResponsiveContainer aspect={2}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx={chartCenter.cx}
-            cy={chartCenter.cy}
-            startAngle={180}
-            endAngle={0}
-            innerRadius={iR}
-            outerRadius={oR}
-            cornerRadius={10}
-            paddingAngle={5}
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Pie>
-          {chartCenter.cx && chartCenter.cy
-            ? renderNeedle(
-                needleValue,
-                data,
-                chartCenter.cx,
-                chartCenter.cy,
-                iR,
-                oR,
-                "#1476B5"
-              )
-            : null}
-        </PieChart>
-      </ResponsiveContainer>
+    <div
+      ref={chartRef}
+      className="w-full h-full min-h-[300px] flex items-center justify-center"
+    >
+      <div style={{ width: `${width}px`, height: `${height}px` }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx={centerX}
+              cy={centerY}
+              startAngle={180}
+              endAngle={0}
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              cornerRadius={10}
+              paddingAngle={5}
+              dataKey="value"
+              stroke="none"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            {renderNeedle(
+              needleValue,
+              data,
+              centerX,
+              centerY,
+              innerRadius,
+              outerRadius,
+              "#1476B5"
+            )}
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
 
-const ChartCard = () => {
+export default function PieChartComp() {
   return (
-    <Card className="w-full h-full max-w-lg mx-auto shadow-lg rounded-3xl">
-      <CardHeader>
-        <CardTitle className="font-[Roboto] font-semibold max-sm:text-lg leading-tight">
+    <Card className="w-full h-full rounded-3xl flex flex-col">
+      <CardHeader className="p-4 sm:p-6">
+        <CardTitle className="font-sans font-semibold text-lg sm:text-xl md:text-2xl leading-tight text-foreground">
           Feedback Sentiment
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow flex items-center justify-center p-2 sm:p-4">
         <ResponsiveNeedlePieChart />
       </CardContent>
-      <CardFooter className="flex items-center justify-between font-[Roboto] mt-20">
-        <div className="text-center flex items-center gap-5">
-          <p className="text-3xl">
+      <CardFooter className="flex flex-col sm:flex-row items-center max-sm:items-start justify-between font-sans mt-2 sm:mt-4 p-4">
+        <div className="text-center flex items-center gap-2 sm:gap-5 mb-2 sm:mb-0">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl">
             <span className="font-bold">75%</span>
             <br /> Positive
           </p>
-          <span
-            style={{
-              width: "15px",
-              height: "15px",
-              backgroundColor: "#1476B5",
-              borderRadius: "20px",
-              display: "block",
-            }}
-          ></span>
+          <span className="w-3 h-3 sm:w-4 sm:h-4 bg-[#1476B5] rounded-full"></span>
         </div>
-        <div className="text-center flex items-center gap-5">
-          <p className="text-3xl">
+        <div className="text-center flex items-center gap-2 sm:gap-5">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl">
             <span className="font-bold">25%</span>
             <br /> Negative
           </p>
-          <span
-            style={{
-              width: "15px",
-              height: "15px",
-              backgroundColor: "#FF8548",
-              borderRadius: "20px",
-              display: "block",
-            }}
-          ></span>
+          <span className="w-3 h-3 sm:w-4 sm:h-4 bg-[#FF8548] rounded-full"></span>
         </div>
       </CardFooter>
     </Card>
   );
-};
-
-export default ChartCard;
+}

@@ -4,11 +4,11 @@ import Navbar from "@/components/Navbar";
 
 function DashboardLayout() {
   return (
-    <div className="flex bg-[#EFF6FA]">
+    <div className="flex bg-baselight dark:bg-basedark px-5 max-[768px]:px-0">
       <div>
         <SideBar />
       </div>
-      <main className="flex-col flex-grow p-2 min-[768px]:max-w-[92vw] max-w-full">
+      <main className="flex-col flex-grow mt-5 ml-4 max-[768px]:ml-0">
         <Navbar />
         <Outlet />
       </main>

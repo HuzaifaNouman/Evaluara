@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ArrowLeft, Search, Bell, Sun, Moon, Menu } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowLeft, Search, Bell, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,17 +11,38 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
 import { useNavbarTitle } from "@/stores/navbar-store";
+import { useStore } from "@/stores/navbar-hamburger";
+import hamburger from "@/assets/hamburger.svg";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [isSearchVisible, setSearchVisible] = useState(false);
   const { title } = useNavbarTitle();
+  const { toggleManualExpand, setIsMobileMenuOpen } = useStore();
 
   return (
-    <nav className="w-full">
-      <div className="px-2 sm:px-6 lg:px-8">
+    <nav className="w-full text-neutral-deepBlack dark:text-dark-text">
+      <div className="px-1">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
+            <Button
+              variant="ghost"
+              className="mr-2 md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <img src={hamburger} alt="Menu" className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="ghost"
+              className="mr-2 hidden md:block"
+              onClick={toggleManualExpand}
+            >
+              <img
+                src={hamburger}
+                alt="Toggle Sidebar"
+                className="h-5 w-5 ml-2"
+              />
+            </Button>
             <span className="font-bold text-[32px]">{title}</span>
           </div>
 
@@ -61,7 +82,7 @@ export default function Navbar() {
                 <Button variant="ghost" className="flex items-center space-x-2">
                   <Avatar>
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
+                      src="https://github.com/shadcn.png" // replace the url with the user img later (data from backend)
                       alt="User"
                     />
                     <AvatarFallback>GK</AvatarFallback>

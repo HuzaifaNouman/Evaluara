@@ -103,7 +103,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-base flex items-center justify-center p-4">
+    <div className="min-h-screen bg-baselight flex items-center justify-center p-4">
       <div className="w-full max-w-[440px] bg-neutral-white p-8 rounded-lg space-y-8">
         {/* Logo */}
         <div className="flex justify-center items-center">
@@ -111,13 +111,16 @@ export default function SignIn() {
         </div>
 
         {/* Header */}
-        <div className="space-y-2 text-center">
+        <div className="space-y-2 text-center text-neutral-deepBlack">
           <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
           <p className="text-sm font-light">Welcome Back!</p>
         </div>
 
         {/* Form */}
-        <form className="space-y-6 my-2" onSubmit={handleSubmit}>
+        <form
+          className="space-y-6 my-2 text-neutral-black"
+          onSubmit={handleSubmit}
+        >
           <div className="space-y-2">
             <Label htmlFor="email">EMAIL</Label>
             <Input
@@ -169,7 +172,7 @@ export default function SignIn() {
         </div>
 
         {/* Sign In Link */}
-        <div className="text-center text-sm">
+        <div className="text-center text-sm text-neutral-black">
           Don't have an Account?
           <Link to="/signup" className="text-secondary hover:underline">
             &nbsp;Sign Up
